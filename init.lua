@@ -41,6 +41,35 @@ P.S. You can delete this when you're done too. It's your config now :)
 -- Supposedly fixes Windows antivirus blocking
 vim.g.nofsync = true
 
+-- Make sure everything is in US english
+vim.cmd('language en_US')
+
+-- Saving the familiar way
+vim.keymap.set('n', "<c-s>", ":w<CR>")
+vim.keymap.set('i', "<c-s>", "<ESC>:w<CR>a")
+
+-- Way of reloading init.lua fast.
+vim.keymap.set('n', "<c-a-r>", ":source $MYVIMRC<CR>"--[[, { silent = true } ]])
+
+-- Adds easier split/pane navigation
+-- Use ctrl-[hjkl] to select the active split!
+vim.keymap.set('n', "<c-h>", ":wincmd h<CR>", { silent = true })
+vim.keymap.set('n', "<c-j>", ":wincmd j<CR>", { silent = true })
+vim.keymap.set('n', "<c-k>", ":wincmd k<CR>", { silent = true })
+vim.keymap.set('n', "<c-l>", ":wincmd l<CR>", { silent = true })
+-- use ctrl-alt-[hjkl] to move the active split!
+vim.keymap.set('n', "<c-a-h>", ":wincmd H<CR>", { silent = true })
+vim.keymap.set('n', "<c-a-j>", ":wincmd J<CR>", { silent = true })
+vim.keymap.set('n', "<c-a-k>", ":wincmd K<CR>", { silent = true })
+vim.keymap.set('n', "<c-a-l>", ":wincmd L<CR>", { silent = true })
+-- Use ctrl-alt-[uiop] to change the size of the active split!
+vim.keymap.set('n', "<c-a-u>", ":wincmd <<CR>", { silent = true })
+vim.keymap.set('n', "<c-a-i>", ":wincmd -<CR>", { silent = true })
+vim.keymap.set('n', "<c-a-o>", ":wincmd +<CR>", { silent = true })
+vim.keymap.set('n', "<c-a-p>", ":wincmd ><CR>", { silent = true })
+-- Use ctrl-alt-å to reset the size of the splits!
+vim.keymap.set('n', "<c-a-'>", ":wincmd =<CR>"--[[ , { silent = true } ]]) -- this does not work
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
@@ -187,8 +216,27 @@ require('lazy').setup({
     opts = {},
   },
 
-  -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  -- "gc" to comment visual regions/lines (edited)
+  {
+    'numToStr/Comment.nvim',
+    opts = {
+      padding = true,
+    },
+    keys = {
+      -- Toggle-commenting the familiar way (did not work?)
+      -- {
+      --   'n',
+      --   "<c-a-,>",
+      --   "gcc"
+      -- },
+      -- {
+      --   'v',
+      --   "<c-a-,>",
+      --   "gc"
+      -- },
+    },
+    lazy = false,
+  },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
@@ -238,6 +286,10 @@ require('lazy').setup({
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
+
+-- Toggle-commenting the familiar way
+-- vim.keymap.set('n', "<c-|>", "gcc", { silent = true })
+-- vim.keymap.set('v', "<c-|>", "gc", { silent = true })
 
 -- Set highlight on search
 vim.o.hlsearch = false
