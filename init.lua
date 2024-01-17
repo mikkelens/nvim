@@ -285,7 +285,7 @@ require('lazy').setup({
   -- { import = 'custom.plugins' },
 }, {})
 
-vim.cmd.colorscheme "catppuccin-mocha"
+vim.cmd.colorscheme = "catppuccin-mocha"
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
